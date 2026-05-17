@@ -32,29 +32,29 @@ export default async function CommandCenter() {
           <form action={createArtifact} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', fontFamily: 'var(--font-punk)' }}>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Artifact Title</label>
-              <input type="text" name="title" required style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
+              <label htmlFor="artifact-title" style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Artifact Title</label>
+              <input id="artifact-title" type="text" name="title" placeholder="Enter title" title="Artifact Title" required style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Subversive Description</label>
-              <textarea name="description" required rows={4} style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)', resize: 'vertical' }} />
+              <label htmlFor="artifact-description" style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Subversive Description</label>
+              <textarea id="artifact-description" name="description" placeholder="Enter description" title="Subversive Description" required rows={4} style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)', resize: 'vertical' }} />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <label style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Price ($)</label>
-                <input type="number" name="price" step="0.01" required style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
+                <label htmlFor="artifact-price" style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Price ($)</label>
+                <input id="artifact-price" type="number" name="price" step="0.01" placeholder="0.00" title="Price ($)" required style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <label style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Stock Count</label>
-                <input type="number" name="stock_count" required defaultValue="1" style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
+                <label htmlFor="artifact-stock" style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Stock Count</label>
+                <input id="artifact-stock" type="number" name="stock_count" placeholder="1" title="Stock Count" required defaultValue="1" style={{ background: 'transparent', border: '1px solid var(--tarnished-gold)', color: '#fff', padding: '0.75rem', fontFamily: 'var(--font-punk)' }} />
               </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <label style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Embassy Courtyard</label>
-              <select name="wing" required style={{ background: 'rgba(26,26,26,1)', border: '1px solid var(--tarnished-gold)', color: 'var(--tarnished-gold)', padding: '0.75rem', fontFamily: 'var(--font-punk)' }}>
+              <label htmlFor="artifact-wing" style={{ color: 'var(--faded-ochre)', fontSize: '0.9rem' }}>Embassy Courtyard</label>
+              <select id="artifact-wing" name="wing" title="Embassy Courtyard" required style={{ background: 'rgba(26,26,26,1)', border: '1px solid var(--tarnished-gold)', color: 'var(--tarnished-gold)', padding: '0.75rem', fontFamily: 'var(--font-punk)' }}>
                 <option value="the-galleries">The Galleries</option>
                 <option value="the-yardsmiths">Craftwork</option>
                 <option value="sartorial-spite">Wardrobe</option>
