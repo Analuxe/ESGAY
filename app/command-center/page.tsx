@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server'
+export const dynamic = 'force-dynamic'
+  import { createClient } from '@/lib/supabase/server'
 import { createArtifact, confiscateArtifact } from '@/app/actions/artifacts'
 import Link from 'next/link'
 
