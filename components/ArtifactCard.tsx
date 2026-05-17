@@ -46,7 +46,7 @@ export default function ArtifactCard({ artifact, index }: { artifact: Artifact, 
             className="hover-scale"
           />
         ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}>
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-luxe)', color: 'rgba(181, 155, 84, 0.1)', fontSize: '2.5rem' }}>ESGAY</span>
           </div>
         )}
