@@ -76,56 +76,34 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <main className="embassy-container">
       {/* Hero / Foyer Header */}
-      <section style={{ 
-        padding: '10rem 2rem 8rem', 
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        backgroundColor: 'rgba(10, 10, 10, 0.4)',
-        backdropFilter: 'blur(10px)',
-        textAlign: 'center'
-      }}>
-        <div style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--tarnished-gold)', letterSpacing: '0.3em', marginBottom: '1.5rem' }}>
+      <section className="hero-section">
+        <div className="hero-subtitle">
           DIPLOMATIC RECEPTION // EST. 2026
         </div>
-        <h1 style={{ 
-          fontSize: 'clamp(3rem, 12vw, 8rem)', 
-          fontFamily: 'var(--font-luxe)', 
-          letterSpacing: '-0.03em',
-          lineHeight: 0.8,
-          color: '#fff',
-          margin: 0
-        }}>
-          ES<span style={{ color: 'var(--tarnished-gold)' }}>GAY</span>
+        <h1 className="hero-title">
+          ES<span className="text-gold">GAY</span>
         </h1>
-        <p style={{ 
-          maxWidth: '600px', 
-          margin: '2rem auto 0', 
-          color: 'var(--peeling-turquoise)', 
-          fontFamily: 'var(--font-punk)', 
-          fontSize: '0.75rem',
-          lineHeight: 1.6,
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
+        <p className="hero-desc">
           The End-Stage Gay Agenda Yardsale. <br />
           A sovereign marketplace for the radicalized and the unapologetic.
         </p>
       </section>
 
       {/* Featured Artifacts Section */}
-      <section style={{ padding: '8rem 2rem', backgroundColor: 'rgba(255,255,255,0.02)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <header style={{ marginBottom: '4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <section className="featured-section">
+        <div className="container-luxe">
+          <header className="section-header-flex">
             <div>
-              <h2 style={{ fontFamily: 'var(--font-luxe)', fontSize: '3rem', color: '#fff', margin: 0 }}>
-                Recent <span style={{ color: 'var(--tarnished-gold)' }}>Discoveries</span>
+              <h2 className="section-title">
+                Recent <span className="text-gold">Discoveries</span>
               </h2>
-              <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--peeling-turquoise)', textTransform: 'uppercase', marginTop: '0.5rem' }}>
+              <p className="section-subtitle">
                 // Confidential Inventory Log Update
               </p>
             </div>
-            <Link href="/the-galleries" style={{ fontFamily: 'var(--font-punk)', fontSize: '0.7rem', color: 'var(--faded-ochre)', textDecoration: 'underline' }}>
+            <Link href="/the-galleries" className="section-link">
               View All Artifacts
             </Link>
           </header>
@@ -139,12 +117,12 @@ export default function Home() {
       </section>
 
       {/* Courtyard Directory */}
-      <section style={{ padding: '8rem 2rem', maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
-        <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'var(--font-luxe)', fontSize: '3.5rem', color: '#fff', margin: 0 }}>
-            Embassy <span style={{ color: 'var(--tarnished-gold)' }}>Courtyards</span>
+      <section className="directory-section">
+        <header className="section-header-center">
+          <h2 className="directory-section-title">
+            Embassy <span className="text-gold">Courtyards</span>
           </h2>
-          <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.7rem', color: 'var(--peeling-turquoise)', textTransform: 'uppercase', marginTop: '1rem' }}>
+          <p className="directory-subtitle">
             Explore the sovereign sectors of the estate
           </p>
         </header>
@@ -158,7 +136,7 @@ export default function Home() {
                   <h3 className="directory-title">{wing.title}</h3>
                   <p className="directory-desc">{wing.desc}</p>
                 </div>
-                <div className="directory-back" style={{ backgroundImage: `url(${wing.img})` }}>
+                <div className="directory-back" style={{ '--bg-img': `url(${wing.img})` } as React.CSSProperties}>
                   <div className="directory-back-content">
                     <div className="directory-category">{wing.category}</div>
                     <div className="access-reveal">[ ENTER_COURTYARD ]</div>
@@ -171,13 +149,8 @@ export default function Home() {
       </section>
 
       {/* Footer Branding */}
-      <footer style={{ 
-        marginTop: 'auto', 
-        padding: '6rem 2rem', 
-        textAlign: 'center', 
-        borderTop: '1px solid rgba(255,255,255,0.05)' 
-      }}>
-        <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
+      <footer className="embassy-footer">
+        <p className="footer-text">
           Confidential Artifact Registry // Secure Handover Required
         </p>
       </footer>

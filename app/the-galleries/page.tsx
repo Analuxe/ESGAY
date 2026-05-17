@@ -49,43 +49,27 @@ export default async function TheGalleries() {
 
   return (
     <main className="room-wrapper fade-in">
-      <header style={{ marginBottom: '6rem', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '-2rem', left: '0', fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--tarnished-gold)', opacity: 0.5 }}>
+      <header className="wing-header">
+        <div className="wing-dept">
           DEPT: GALLERIES_09
         </div>
-        <h1 style={{ fontSize: '4rem', letterSpacing: '-0.02em', color: '#fff' }}>
-          The <span style={{ color: 'var(--tarnished-gold)' }}>Galleries</span>
+        <h1 className="wing-h1">
+          The <span className="text-gold">Galleries</span>
         </h1>
-        <p style={{ 
-          color: 'var(--peeling-turquoise)', 
-          fontFamily: 'var(--font-punk)', 
-          fontSize: '0.75rem',
-          marginTop: '1rem',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
+        <p className="wing-desc">
           [ Fine art and digital subversion exhibitions ]
         </p>
       </header>
 
-      <nav style={{ marginBottom: '4rem' }}>
-        <Link href="/" style={{ 
-          fontFamily: 'var(--font-punk)', 
-          fontSize: '0.65rem', 
-          color: 'var(--faded-ochre)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
-          <span style={{ fontSize: '1rem' }}>←</span> Return to Embassy Base
+      <nav className="wing-nav">
+        <Link href="/" className="wing-back-link">
+          <span className="wing-back-icon">←</span> Return to Embassy Base
         </Link>
       </nav>
 
       <div className="gallery-grid">
         {error && (
-          <p style={{ color: 'var(--anarchist-crimson)', gridColumn: '1/-1', fontFamily: 'var(--font-punk)', fontSize: '0.8rem' }}>
+          <p className="wing-error">
             [ WARNING: Connection to the live archives severed. Displaying cached relics. ]
           </p>
         )}
@@ -95,8 +79,8 @@ export default async function TheGalleries() {
         ))}
       </div>
 
-      <footer style={{ marginTop: '8rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase' }}>
+      <footer className="wing-footer">
+        <p className="wing-footer-text">
           End-Stage Gay Agenda Yardsale // © 2026 // All Rights Reserved
         </p>
       </footer>
