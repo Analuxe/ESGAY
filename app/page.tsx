@@ -136,7 +136,8 @@ export default function Home() {
                   <h3 className="directory-title">{wing.title}</h3>
                   <p className="directory-desc">{wing.desc}</p>
                 </div>
-                <div className="directory-back" style={{ '--bg-img': `url(${wing.img})` } as React.CSSProperties}>
+                <div className="directory-back">
+                  <img src={wing.img} alt={wing.title} className="directory-back-image" />
                   <div className="directory-back-content">
                     <div className="directory-category">{wing.category}</div>
                     <div className="access-reveal">[ ENTER_COURTYARD ]</div>
