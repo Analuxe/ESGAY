@@ -8,6 +8,9 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  NEXT_PUBLIC_SUPABASE_URL: "https://placeholder-project.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: "placeholder-anon-key"
+  SUPABASE_SERVICE_ROLE_KEY: "placeholder-service-role-key"
 
 jobs:
   build:
@@ -31,6 +34,3 @@ jobs:
 
       - name: Build Application
         run: npm run build
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: "https://placeholder-project.supabase.co"
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: "placeholder-anon-key"
