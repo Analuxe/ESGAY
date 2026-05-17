@@ -15,7 +15,7 @@ export default async function CommandCenter() {
     <main className="room-wrapper fade-in" style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
       <header style={{ borderBottom: '2px solid var(--anarchist-crimson)', paddingBottom: '1rem', marginBottom: '3rem' }}>
         <h1 style={{ fontFamily: 'var(--font-punk)', fontSize: '2.5rem', color: 'var(--anarchist-crimson)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: 0 }}>
-          // COMMAND CENTER //
+          {"// COMMAND CENTER //"}
         </h1>
         <p style={{ color: 'var(--tarnished-gold)', fontFamily: 'var(--font-punk)', marginTop: '0.5rem' }}>
           RESTRICTED ACCESS. ESTABLISHMENT OVERRIDE TERMINAL.

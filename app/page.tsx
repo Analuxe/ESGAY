@@ -100,7 +100,7 @@ export default function Home() {
                 Recent <span className="text-gold">Discoveries</span>
               </h2>
               <p className="section-subtitle">
-                // Confidential Inventory Log Update
+                {"// Confidential Inventory Log Update"}
               </p>
             </div>
             <Link href="/the-galleries" className="section-link">

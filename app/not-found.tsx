@@ -12,7 +12,7 @@ export default function NotFound() {
       
       <div className="cracked-border not-found-box">
         <p className="not-found-quote">
-          "The infrastructure here has decayed beyond recognition. <br/><span className="not-found-highlight">There is nothing left to salvage.</span>"
+          &ldquo;The infrastructure here has decayed beyond recognition. <br/><span className="not-found-highlight">There is nothing left to salvage.</span>&rdquo;
         </p>
         <Link href="/" className="subversive-btn not-found-btn">
           Return to the Embassy

@@ -83,7 +83,7 @@ export default function CustomsForm() {
 
             <div style={{ backgroundColor: 'rgba(139,0,0,0.1)', padding: '1.5rem', borderLeft: '4px solid #8b0000', marginBottom: '2rem' }}>
               <p style={{ color: '#8b0000', margin: 0, fontSize: '0.9rem', lineHeight: '1.5' }}>
-                WARNING: By signing this manifest, you acknowledge that all items are acquired "as-is" from the ruins. 
+                WARNING: By signing this manifest, you acknowledge that all items are acquired &quot;as-is&quot; from the ruins. 
                 The establishment takes no responsibility for curses, hexes, or ideological corruption.
               </p>
             </div>
