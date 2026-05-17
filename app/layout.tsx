@@ -3,6 +3,7 @@ import { Space_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./Providers";
 import Link from 'next/link';
+import CookieGate from "@/components/CookieGate";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spaceMono.variable} ${playfair.variable} font-punk`}>
         <Providers>
+          <CookieGate />
           <div className="embassy-container">
             {children}
           </div>
