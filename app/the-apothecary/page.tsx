@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import ArtifactCard from '@/components/ArtifactCard';
 
-export default async function Wardrobe() {
+export default async function TheApothecary() {
   const supabase = createClient();
   
   const { data: artifacts, error } = await supabase
@@ -13,17 +13,17 @@ export default async function Wardrobe() {
         moniker
       )
     `)
-    .eq('wing', 'sartorial-spite')
+    .eq('wing', 'the-apothecary')
     .order('created_at', { ascending: false });
 
   return (
     <main className="room-wrapper fade-in">
       <header style={{ marginBottom: '6rem', position: 'relative' }}>
         <div style={{ position: 'absolute', top: '-2rem', left: '0', fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--tarnished-gold)', opacity: 0.5 }}>
-          DEPT: WARDROBE_03
+          DEPT: APOTHECARY_05
         </div>
         <h1 style={{ fontSize: '4rem', letterSpacing: '-0.02em', color: '#fff' }}>
-          Wardrobe
+          The <span style={{ color: 'var(--tarnished-gold)' }}>Apothecary</span>
         </h1>
         <p style={{ 
           color: 'var(--peeling-turquoise)', 
@@ -33,7 +33,7 @@ export default async function Wardrobe() {
           textTransform: 'uppercase',
           letterSpacing: '0.1em'
         }}>
-          [ High-end tailoring designed to intimidate ]
+          [ Luxe beauty and radical skincare preservation ]
         </p>
       </header>
 
@@ -55,13 +55,13 @@ export default async function Wardrobe() {
       <div className="gallery-grid">
         {error && (
           <p style={{ color: 'var(--anarchist-crimson)', gridColumn: '1/-1', fontFamily: 'var(--font-punk)', fontSize: '0.8rem' }}>
-            [ WARNING: Connection to the archives severed. ]
+            [ WARNING: Connection to the apothecary severed. ]
           </p>
         )}
         
         {artifacts?.length === 0 && !error && (
           <p style={{ color: 'var(--tarnished-gold)', fontStyle: 'italic', gridColumn: '1/-1' }}>
-            The racks are bare. New armor is currently being tailored.
+            The vials are empty. The alchemists are brewing a new batch.
           </p>
         )}
 
@@ -69,6 +69,12 @@ export default async function Wardrobe() {
           <ArtifactCard key={artifact.id} artifact={artifact as any} index={index} />
         ))}
       </div>
+
+      <footer style={{ marginTop: '8rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase' }}>
+          End-Stage Gay Agenda Yardsale // © 2026 // All Rights Reserved
+        </p>
+      </footer>
     </main>
   );
 }

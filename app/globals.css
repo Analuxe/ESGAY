@@ -3,8 +3,9 @@
   --obsidian-matte: #1a1a1a;
   --anarchist-crimson: #8b0000;
   --tarnished-gold: #b59b54;
-  --peeling-turquoise: #5ebec4;
+  --peeling-turquoise: #6b9596; /* Muted, sun-bleached Havana cyan */
   --faded-ochre: #dfa25f;
+  --embassy-cream: #f4f1ea;
 
   /* Basic Variables */
   --foreground-rgb: 230, 230, 230;
@@ -25,6 +26,35 @@ body {
   padding: 0;
   overflow-x: hidden;
   box-sizing: border-box;
+  font-family: var(--font-punk), monospace;
+  position: relative;
+}
+
+/* Background Christian Lacroix & Cracked Plaster Effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: 
+    url("/bg-decayed-lacroix.png"),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: cover, auto;
+  background-position: center, center;
+  background-blend-mode: overlay, normal;
+  opacity: 0.25; /* Dialed up slightly to see the Lacroix pattern */
+  pointer-events: none;
+  z-index: -1;
+  filter: grayscale(40%) contrast(1.2);
+}
+
+/* Vignette to emphasize shadows */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 10%, rgba(15,15,15,0.95) 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 *, *::before, *::after {
@@ -93,18 +123,322 @@ body {
 /* Typography Helpers */
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 400;
+  font-family: var(--font-luxe), serif;
+  letter-spacing: 0.02em;
   color: var(--tarnished-gold);
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 a:hover {
   color: var(--anarchist-crimson);
+  text-shadow: 0 0 8px rgba(139, 0, 0, 0.6);
+}
+
+/* Page Layout Wrappers */
+.embassy-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-wrapper {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
+/* Subtle reveal animations */
+.fade-in {
+  animation: fadeIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subversive Border and Glitch Details */
+.cracked-border {
+  border: 1px solid var(--tarnished-gold);
+  border-image: linear-gradient(to right, var(--tarnished-gold) 10%, transparent 15%, var(--tarnished-gold) 20%, var(--tarnished-gold) 80%, transparent 85%, var(--faded-ochre) 90%) 1;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 15px rgba(26,26,26,1);
+}
+
+.subversive-btn {
+  border: 1px solid var(--faded-ochre);
+  background: transparent;
+  color: var(--tarnished-gold);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.subversive-btn::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: var(--anarchist-crimson);
+  transition: left 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+  z-index: -1;
+}
+
+.subversive-btn:hover {
+  color: #fff;
+  border-color: var(--anarchist-crimson);
+}
+
+.subversive-btn:hover::before {
+  left: 0;
+}
+
+/* Modern Embassy Card System */
+.artifact-card {
+  position: relative;
+  background: rgba(26, 26, 26, 0.5);
+  border: 1px solid rgba(181, 155, 84, 0.2);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.artifact-card:hover {
+  border-color: rgba(181, 155, 84, 0.5);
+  background: rgba(26, 26, 26, 0.8);
+}
+
+.artifact-image-container {
+  aspect-ratio: 4/5;
+  background: #0a0a0a;
+  overflow: hidden;
+  position: relative;
+}
+
+.artifact-image-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  z-index: 10;
+}
+
+.artifact-number {
+  position: absolute;
+  top: 1rem; right: 1.5rem;
+  font-family: var(--font-punk), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(181, 155, 84, 0.4);
+  z-index: 20;
+}
+
+.artifact-card:hover .artifact-number {
+  color: var(--tarnished-gold);
+}
+
+.artifact-content {
+  padding: 1.5rem;
+  position: relative;
+  z-index: 20;
+  margin-top: -3rem;
+}
+
+.artifact-origin {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--peeling-turquoise);
+  margin-bottom: 0.25rem;
+}
+
+.artifact-title {
+  font-family: var(--font-luxe), serif;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: #fff;
+  transition: color 0.4s;
+}
+
+.artifact-card:hover .artifact-title {
+  color: var(--tarnished-gold);
+}
+
+.artifact-description {
+  color: #a3a3a3;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.artifact-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.artifact-price {
+  font-family: var(--font-punk), monospace;
+  font-size: 1.125rem;
+  color: var(--tarnished-gold);
+}
+
+.artifact-btn {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-punk), monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(181, 155, 84, 0.3);
+  color: var(--tarnished-gold);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.artifact-btn:hover:not(:disabled) {
+  background: var(--tarnished-gold);
+  color: #000;
+}
+
+.artifact-btn.acquired {
+  background: var(--anarchist-crimson);
+  color: #fff;
+  border-color: transparent;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+/* Directory & Foyer System */
+.foyer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.directory-link-wrapper {
+  perspective: 1000px;
+  height: 400px;
+}
+
+.directory-link {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  display: block;
+}
+
+.directory-link-wrapper:hover .directory-link {
+  transform: rotateY(180deg);
+}
+
+.directory-front, .directory-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.directory-front {
+  background-color: var(--obsidian-matte);
+  color: white;
+  gap: 1rem;
+}
+
+.directory-back {
+  background-color: #1a1a1a;
+  color: white;
+  transform: rotateY(180deg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.directory-back::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.directory-back-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.directory-tag {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.55rem;
+  color: var(--tarnished-gold);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.directory-title {
+  font-family: var(--font-luxe), serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin: 0.5rem 0;
+}
+
+.directory-desc {
+  color: var(--peeling-turquoise);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--font-punk);
+  text-transform: uppercase;
+}
+
+.directory-category {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.7rem;
+  color: var(--tarnished-gold);
+  margin-top: auto;
+  letter-spacing: 0.2em;
+}
+
+.access-reveal {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.6rem;
+  color: var(--anarchist-crimson);
+  margin-top: 1rem;
+  letter-spacing: 0.1em;
 }

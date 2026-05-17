@@ -12,6 +12,12 @@ Every asset, line of code, and product must be filtered through these specific i
 *   **Siouxsie Sioux:** Sharp Goth-punk tailoring and aggressive, cold elegance.
 *   **Robert Polidori (Havana):** The backdrop of "Beautiful Decay"—faded grandiosity and historical collapse.
 
+## II. Terminology
+*   **The Courtyards:** The primary navigational sectors of the Embassy.
+*   **The Artifacts:** The curated products available for acquisition.
+*   **The Manifest:** A record of a user's acquired artifacts.
+*   **Moving Image:** Sophisticated term for film or video works.
+
 ## III. Brand Architecture: The Abandoned Embassy
 ESGAY is not a storefront; it is an Abandoned Embassy representing sovereign territory within the decaying ruins of Western capitalism.
 
@@ -20,7 +26,7 @@ ESGAY is not a storefront; it is an Abandoned Embassy representing sovereign ter
 *   **/the-yardsmiths:** Heavy, tangible crafts (forged glass, jewelry, furniture).
 *   **/sartorial-spite:** High-end, tailored fashion designed to intimidate.
 *   **/propaganda-parody:** Biting satire and cultural contraband.
-*   **/war-paint-preservation:** Luxe beauty, skincare, and bold pigments.
+*   **/the-apothecary:** Luxe beauty, skincare, and bold pigments.
 
 ## IV. Visual Identity & UI
 **The Glitch Layer:** The UI features "glitched" CSS layers that appear to peel away like old plaster to reveal radical underground messages.

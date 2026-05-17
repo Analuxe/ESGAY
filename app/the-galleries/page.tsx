@@ -1,21 +1,105 @@
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
+import ArtifactCard from '@/components/ArtifactCard';
 
-export default function TheGalleries() {
+export default async function TheGalleries() {
+  const supabase = createClient();
+  
+  const { data: artifacts, error } = await supabase
+    .from('artifacts')
+    .select(`
+      *,
+      vendors (
+        moniker
+      )
+    `)
+    .eq('wing', 'the-galleries')
+    .order('created_at', { ascending: false });
+
+  // Mock data for visual demonstration if DB is empty
+  const displayArtifacts = artifacts && artifacts.length > 0 ? artifacts : [
+    {
+      id: 'mock-1',
+      title: 'Moving Image No. 4',
+      description: 'A structural film study exploring the semiotics of diplomatic immunity.',
+      price: 1800.00,
+      stock_count: 3,
+      image_url: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800',
+      vendors: { moniker: 'The Archivist' }
+    },
+    {
+      id: 'mock-2',
+      title: 'Goth-Punk Tailored Corset',
+      description: 'Structured silk with intricate gold embroidery. Designed for high-stakes subversion.',
+      price: 3850.00,
+      stock_count: 1,
+      image_url: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=800',
+      vendors: { moniker: 'Sartorial Spite' }
+    },
+    {
+      id: 'mock-3',
+      title: 'Apothecary Elixir',
+      description: 'Essential face elixir for the radicalized. Curated skincare in a matte black vessel.',
+      price: 120.00,
+      stock_count: 5,
+      image_url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=800',
+      vendors: { moniker: 'The Apothecary' }
+    }
+  ];
+
   return (
-    <main style={{ padding: '4rem', maxWidth: '800px', margin: '0 auto' }}>
-      <Link href="/" style={{ color: 'var(--anarchist-crimson)', textDecoration: 'underline', marginBottom: '2rem', display: 'inline-block' }}>
-        &larr; Return to Embassy
-      </Link>
-      <h1 className="glitch-layer" data-text="The Galleries" style={{ borderBottom: '1px solid var(--tarnished-gold)', paddingBottom: '1rem' }}>
-        The Galleries
-      </h1>
-      <p style={{ color: 'var(--peeling-turquoise)', marginTop: '2rem', fontStyle: 'italic', fontSize: '1.2rem' }}>
-        "Exhibitions of the Radicalized"
-      </p>
-      <div style={{ marginTop: '4rem', padding: '2rem', border: '1px dashed var(--faded-ochre)', textAlign: 'center' }}>
-        <p>Curated fine art and digital subversion.</p>
-        <p style={{ fontSize: '0.8rem', color: 'var(--tarnished-gold)', marginTop: '2rem' }}>[ Inventory corrupted. Decoding in progress... ]</p>
+    <main className="room-wrapper fade-in">
+      <header style={{ marginBottom: '6rem', position: 'relative' }}>
+        <div style={{ position: 'absolute', top: '-2rem', left: '0', fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--tarnished-gold)', opacity: 0.5 }}>
+          DEPT: GALLERIES_09
+        </div>
+        <h1 style={{ fontSize: '4rem', letterSpacing: '-0.02em', color: '#fff' }}>
+          The <span style={{ color: 'var(--tarnished-gold)' }}>Galleries</span>
+        </h1>
+        <p style={{ 
+          color: 'var(--peeling-turquoise)', 
+          fontFamily: 'var(--font-punk)', 
+          fontSize: '0.75rem',
+          marginTop: '1rem',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em'
+        }}>
+          [ Fine art and digital subversion exhibitions ]
+        </p>
+      </header>
+
+      <nav style={{ marginBottom: '4rem' }}>
+        <Link href="/" style={{ 
+          fontFamily: 'var(--font-punk)', 
+          fontSize: '0.65rem', 
+          color: 'var(--faded-ochre)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
+        }}>
+          <span style={{ fontSize: '1rem' }}>←</span> Return to Embassy Base
+        </Link>
+      </nav>
+
+      <div className="gallery-grid">
+        {error && (
+          <p style={{ color: 'var(--anarchist-crimson)', gridColumn: '1/-1', fontFamily: 'var(--font-punk)', fontSize: '0.8rem' }}>
+            [ WARNING: Connection to the live archives severed. Displaying cached relics. ]
+          </p>
+        )}
+        
+        {displayArtifacts.map((artifact, index) => (
+          <ArtifactCard key={artifact.id} artifact={artifact as any} index={index} />
+        ))}
       </div>
+
+      <footer style={{ marginTop: '8rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase' }}>
+          End-Stage Gay Agenda Yardsale // © 2026 // All Rights Reserved
+        </p>
+      </footer>
     </main>
   );
 }
