@@ -42,12 +42,11 @@ export default function ArtifactCard({ artifact, index }: { artifact: Artifact, 
           <img 
             src={artifact.image_url} 
             alt={artifact.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s' }}
-            className="hover-scale"
+            className="artifact-img hover-scale"
           />
         ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-luxe)', color: 'rgba(181, 155, 84, 0.1)', fontSize: '2.5rem' }}>ESGAY</span>
+          <div className="artifact-placeholder">
+            <span className="artifact-placeholder-text">ESGAY</span>
           </div>
         )}
       </div>

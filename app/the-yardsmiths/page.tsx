@@ -18,49 +18,33 @@ export default async function Craftwork() {
 
   return (
     <main className="room-wrapper fade-in">
-      <header style={{ marginBottom: '6rem', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '-2rem', left: '0', fontFamily: 'var(--font-punk)', fontSize: '0.6rem', color: 'var(--tarnished-gold)', opacity: 0.5 }}>
+      <header className="wing-header">
+        <div className="wing-dept">
           DEPT: CRAFTWORK_02
         </div>
-        <h1 style={{ fontSize: '4rem', letterSpacing: '-0.02em', color: '#fff' }}>
+        <h1 className="wing-h1">
           Craftwork
         </h1>
-        <p style={{ 
-          color: 'var(--peeling-turquoise)', 
-          fontFamily: 'var(--font-punk)', 
-          fontSize: '0.75rem',
-          marginTop: '1rem',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}>
+        <p className="wing-desc">
           [ Heavy crafts: forged glass, jewelry, and defiant structure ]
         </p>
       </header>
 
-      <nav style={{ marginBottom: '4rem' }}>
-        <Link href="/" style={{ 
-          fontFamily: 'var(--font-punk)', 
-          fontSize: '0.65rem', 
-          color: 'var(--faded-ochre)',
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
-          <span style={{ fontSize: '1rem' }}>←</span> Return to Embassy Base
+      <nav className="wing-nav">
+        <Link href="/" className="wing-back-link">
+          <span className="wing-back-icon">←</span> Return to Embassy Base
         </Link>
       </nav>
 
       <div className="gallery-grid">
         {error && (
-          <p style={{ color: 'var(--anarchist-crimson)', gridColumn: '1/-1', fontFamily: 'var(--font-punk)', fontSize: '0.8rem' }}>
+          <p className="wing-error">
             [ WARNING: The furnace has gone cold. Connection lost. ]
           </p>
         )}
         
         {artifacts?.length === 0 && !error && (
-          <p style={{ color: 'var(--tarnished-gold)', fontStyle: 'italic', gridColumn: '1/-1' }}>
+          <p className="wing-empty">
             The anvils are silent. Check back when the fires are lit.
           </p>
         )}
