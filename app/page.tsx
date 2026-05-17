@@ -57,11 +57,11 @@ export default function Home() {
     },
     {
       id: 'featured-2',
-      title: 'Goth-Punk Tailored Corset',
-      description: 'Structured silk with intricate gold embroidery. Designed for high-stakes subversion.',
-      price: 3850.00,
+      title: 'Debord\'s "Spectacle" Avant-Garde Tee',
+      description: 'Medium-weight cotton armor emblazoned with Guy Debord\'s radical critique. Features a vintage monochrome crowd of onlookers in 3D glasses, designed to disrupt the gaze of the establishment.',
+      price: 280.00,
       stock_count: 1,
-      image_url: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=800',
+      image_url: '/debord-spectacle.png',
       vendors: { moniker: 'Sartorial Spite' }
     },
     {
