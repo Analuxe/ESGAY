@@ -3,13 +3,15 @@
   --obsidian-matte: #1a1a1a;
   --anarchist-crimson: #8b0000;
   --tarnished-gold: #b59b54;
-  --peeling-turquoise: #6b9596; /* Muted, sun-bleached Havana cyan */
+  --peeling-turquoise: #6b9596;
+  /* Muted, sun-bleached Havana cyan */
   --faded-ochre: #dfa25f;
   --embassy-cream: #f4f1ea;
 
   /* Basic Variables */
   --foreground-rgb: 230, 230, 230;
-  --background-rgb: 26, 26, 26; /* Matches --obsidian-matte */
+  --background-rgb: 26, 26, 26;
+  /* Matches --obsidian-matte */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,14 +36,18 @@ body {
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background-image: 
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image:
     url("/bg-decayed-lacroix.png"),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-size: cover, auto;
   background-position: center, center;
   background-blend-mode: overlay, normal;
-  opacity: 0.25; /* Dialed up slightly to see the Lacroix pattern */
+  opacity: 0.25;
+  /* Dialed up slightly to see the Lacroix pattern */
   pointer-events: none;
   z-index: -1;
   filter: grayscale(40%) contrast(1.2);
@@ -51,13 +57,18 @@ body::before {
 body::after {
   content: "";
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 10%, rgba(15,15,15,0.95) 100%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 10%, rgba(15, 15, 15, 0.95) 100%);
   pointer-events: none;
   z-index: -1;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -97,31 +108,98 @@ body::after {
 }
 
 @keyframes glitch-anim {
-  0% { clip: rect(78px, 9999px, 83px, 0); }
-  5% { clip: rect(32px, 9999px, 47px, 0); }
-  10% { clip: rect(96px, 9999px, 2px, 0); }
-  15% { clip: rect(100px, 9999px, 66px, 0); }
-  20% { clip: rect(86px, 9999px, 99px, 0); }
-  25% { clip: rect(15px, 9999px, 43px, 0); }
-  30% { clip: rect(16px, 9999px, 80px, 0); }
-  35% { clip: rect(7px, 9999px, 50px, 0); }
-  40% { clip: rect(62px, 9999px, 87px, 0); }
-  45% { clip: rect(88px, 9999px, 12px, 0); }
-  50% { clip: rect(10px, 9999px, 3px, 0); }
-  55% { clip: rect(98px, 9999px, 79px, 0); }
-  60% { clip: rect(4px, 9999px, 94px, 0); }
-  65% { clip: rect(44px, 9999px, 1px, 0); }
-  70% { clip: rect(38px, 9999px, 73px, 0); }
-  75% { clip: rect(54px, 9999px, 20px, 0); }
-  80% { clip: rect(71px, 9999px, 58px, 0); }
-  85% { clip: rect(33px, 9999px, 85px, 0); }
-  90% { clip: rect(21px, 9999px, 69px, 0); }
-  95% { clip: rect(92px, 9999px, 48px, 0); }
-  100% { clip: rect(18px, 9999px, 31px, 0); }
+  0% {
+    clip: rect(78px, 9999px, 83px, 0);
+  }
+
+  5% {
+    clip: rect(32px, 9999px, 47px, 0);
+  }
+
+  10% {
+    clip: rect(96px, 9999px, 2px, 0);
+  }
+
+  15% {
+    clip: rect(100px, 9999px, 66px, 0);
+  }
+
+  20% {
+    clip: rect(86px, 9999px, 99px, 0);
+  }
+
+  25% {
+    clip: rect(15px, 9999px, 43px, 0);
+  }
+
+  30% {
+    clip: rect(16px, 9999px, 80px, 0);
+  }
+
+  35% {
+    clip: rect(7px, 9999px, 50px, 0);
+  }
+
+  40% {
+    clip: rect(62px, 9999px, 87px, 0);
+  }
+
+  45% {
+    clip: rect(88px, 9999px, 12px, 0);
+  }
+
+  50% {
+    clip: rect(10px, 9999px, 3px, 0);
+  }
+
+  55% {
+    clip: rect(98px, 9999px, 79px, 0);
+  }
+
+  60% {
+    clip: rect(4px, 9999px, 94px, 0);
+  }
+
+  65% {
+    clip: rect(44px, 9999px, 1px, 0);
+  }
+
+  70% {
+    clip: rect(38px, 9999px, 73px, 0);
+  }
+
+  75% {
+    clip: rect(54px, 9999px, 20px, 0);
+  }
+
+  80% {
+    clip: rect(71px, 9999px, 58px, 0);
+  }
+
+  85% {
+    clip: rect(33px, 9999px, 85px, 0);
+  }
+
+  90% {
+    clip: rect(21px, 9999px, 69px, 0);
+  }
+
+  95% {
+    clip: rect(92px, 9999px, 48px, 0);
+  }
+
+  100% {
+    clip: rect(18px, 9999px, 31px, 0);
+  }
 }
 
 /* Typography Helpers */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   font-weight: 400;
   font-family: var(--font-luxe), serif;
@@ -161,15 +239,22 @@ a:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Subversive Border and Glitch Details */
 .cracked-border {
   border: 1px solid var(--tarnished-gold);
   border-image: linear-gradient(to right, var(--tarnished-gold) 10%, transparent 15%, var(--tarnished-gold) 20%, var(--tarnished-gold) 80%, transparent 85%, var(--faded-ochre) 90%) 1;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 15px rgba(26,26,26,1);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(26, 26, 26, 1);
 }
 
 .subversive-btn {
@@ -184,7 +269,10 @@ a:hover {
 .subversive-btn::before {
   content: "";
   position: absolute;
-  top: 0; left: -100%; width: 100%; height: 100%;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: var(--anarchist-crimson);
   transition: left 0.3s cubic-bezier(0.86, 0, 0.07, 1);
   z-index: -1;
@@ -223,14 +311,18 @@ a:hover {
 .artifact-image-container::after {
   content: "";
   position: absolute;
-  bottom: 0; left: 0; width: 100%; height: 60%;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
   z-index: 10;
 }
 
 .artifact-number {
   position: absolute;
-  top: 1rem; right: 1.5rem;
+  top: 1rem;
+  right: 1.5rem;
   font-family: var(--font-punk), monospace;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
@@ -356,7 +448,8 @@ a:hover {
   transform: rotateY(180deg);
 }
 
-.directory-front, .directory-back {
+.directory-front,
+.directory-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -397,8 +490,11 @@ a:hover {
 .directory-back::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
@@ -755,7 +851,8 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: fill; /* Strictly fills the 16:9 wrapper without distortion */
+  object-fit: fill;
+  /* Strictly fills the 16:9 wrapper without distortion */
   z-index: 1;
   pointer-events: none;
 }
@@ -777,7 +874,7 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(38,38,38,0.9) 0%, rgba(15,15,15,1) 100%);
+  background: radial-gradient(circle at center, rgba(38, 38, 38, 0.9) 0%, rgba(15, 15, 15, 1) 100%);
   z-index: 2;
 }
 
@@ -801,15 +898,11 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.35) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.06), 
-    rgba(0, 255, 0, 0.02), 
-    rgba(0, 0, 255, 0.06)
-  );
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06));
   background-size: 100% 4px, 6px 100%;
   z-index: 10;
   pointer-events: none;
@@ -833,7 +926,8 @@ a:hover {
   height: auto;
   aspect-ratio: 16 / 9;
   z-index: 1;
-  flex-shrink: 0; /* Prevents flexbox from shrinking the scaled wrapper */
+  flex-shrink: 0;
+  /* Prevents flexbox from shrinking the scaled wrapper */
 }
 
 @media (max-aspect-ratio: 16/9) {
@@ -846,20 +940,25 @@ a:hover {
 /* Spatial Button Grid */
 .hud-button-matrix {
   position: absolute;
-  top: 55.5%; /* Maintained from previous height adjustment */
-  left: 50.95%; /* Adjusted mathematically to freeze the left-bounds of all buttons */
+  top: 55.5%;
+  /* Maintained from previous height adjustment */
+  left: 50.95%;
+  /* Adjusted mathematically to freeze the left-bounds of all buttons */
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   width: 100%;
-  gap: 1.2%; /* Increased gap to absorb the snipped width and hold positions */
+  gap: 1.2%;
+  /* Increased gap to absorb the snipped width and hold positions */
   z-index: 20;
   pointer-events: auto;
 }
 
 .hud-projection-btn {
-  width: 9.6%; /* Snipped exactly 5% off the right side (from 10.1%) */
-  aspect-ratio: 160 / 45; /* Native width/height to perfectly scale */
+  width: 9.6%;
+  /* Snipped exactly 5% off the right side (from 10.1%) */
+  aspect-ratio: 160 / 45;
+  /* Native width/height to perfectly scale */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -900,25 +999,30 @@ a:hover {
     filter: brightness(1) contrast(1);
     opacity: 1;
   }
+
   20% {
     transform: scale(1.02, 0.95);
     filter: brightness(1.2) contrast(1.2);
   }
+
   40% {
     transform: scale(1.05, 0.04);
     filter: brightness(2) contrast(1.5);
     opacity: 0.95;
   }
+
   60% {
     transform: scale(0.08, 0.002);
     filter: brightness(5);
     opacity: 0.8;
   }
+
   80% {
     transform: scale(0.001, 0.001);
     background: #fff;
     opacity: 0.4;
   }
+
   100% {
     transform: scale(0);
     opacity: 0;
@@ -933,7 +1037,8 @@ a:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100000; /* Higher than gate overlay */
+  z-index: 100000;
+  /* Higher than gate overlay */
   background: rgba(10, 10, 10, 0.85);
   display: flex;
   justify-content: center;
@@ -970,11 +1075,20 @@ a:hover {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
-.terminal-dot-group .dot.red { background: var(--anarchist-crimson); }
-.terminal-dot-group .dot.gold { background: var(--tarnished-gold); }
-.terminal-dot-group .dot.turquoise { background: var(--peeling-turquoise); }
+
+.terminal-dot-group .dot.red {
+  background: var(--anarchist-crimson);
+}
+
+.terminal-dot-group .dot.gold {
+  background: var(--tarnished-gold);
+}
+
+.terminal-dot-group .dot.turquoise {
+  background: var(--peeling-turquoise);
+}
 
 .cookie-modal-title {
   font-family: var(--font-punk), monospace;
@@ -994,6 +1108,7 @@ a:hover {
   padding: 0;
   transition: none;
 }
+
 .cookie-modal-close-btn:hover {
   color: var(--anarchist-crimson);
 }
@@ -1020,7 +1135,7 @@ a:hover {
 }
 
 .cookie-vector-item {
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   background: rgba(255, 255, 255, 0.01);
   padding: 1.25rem;
   display: flex;
@@ -1070,7 +1185,7 @@ a:hover {
   width: 76px;
   height: 34px;
   background: #121212;
-  border: 2px solid rgba(230,230,230,0.2);
+  border: 2px solid rgba(230, 230, 230, 0.2);
   position: relative;
   cursor: pointer;
   padding: 0;
@@ -1113,7 +1228,8 @@ a:hover {
   height: 26px;
   background: rgba(230, 230, 230, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: none; /* ABRUPT SNAP */
+  transition: none;
+  /* ABRUPT SNAP */
 }
 
 .mechanical-switch.active .switch-handle {
@@ -1125,7 +1241,7 @@ a:hover {
 
 /* Lock state switches */
 .mechanical-switch.essential-locked {
-  background: rgba(26,26,26,0.8);
+  background: rgba(26, 26, 26, 0.8);
   border-color: rgba(181, 155, 84, 0.3);
   cursor: not-allowed;
 }
@@ -1149,7 +1265,7 @@ a:hover {
 
 .cookie-modal-footer {
   padding: 1.25rem 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   background: rgba(255, 255, 255, 0.01);
   display: flex;
   flex-direction: column;
@@ -1188,11 +1304,13 @@ a:hover {
     transform: scaleY(0.01) scaleX(0.9);
     filter: brightness(2);
   }
+
   50% {
     opacity: 0.8;
     transform: scaleY(1.1) scaleX(1);
     filter: brightness(1.5);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -1201,11 +1319,233 @@ a:hover {
 }
 
 @keyframes badge-flicker {
-  0%, 100% { opacity: 1; }
-  92% { opacity: 1; }
-  93% { opacity: 0.3; }
-  94% { opacity: 0.9; }
-  95% { opacity: 0.1; }
-  96% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  93% {
+    opacity: 0.3;
+  }
+
+  94% {
+    opacity: 0.9;
+  }
+
+  95% {
+    opacity: 0.1;
+  }
+
+  96% {
+    opacity: 1;
+  }
 }
 
+/* ==========================================================================
+   ONBOARDING & LOGIN FLOW STYLING
+   ========================================================================== */
+
+.login-page-main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.login-page-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.onboarding-container {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 3rem 2rem;
+  background-color: rgba(26, 26, 26, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.onboarding-card-accent {
+  position: absolute;
+  top: -1px;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: var(--anarchist-crimson);
+  opacity: 0.8;
+}
+
+.onboarding-title {
+  font-family: var(--font-luxe);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  display: block;
+}
+
+.onboarding-subtitle {
+  font-family: var(--font-punk);
+  font-size: 0.75rem;
+  color: var(--peeling-turquoise);
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.onboarding-error {
+  padding: 1rem;
+  border: 1px solid var(--anarchist-crimson);
+  background-color: rgba(139, 0, 0, 0.1);
+  color: var(--anarchist-crimson);
+  font-family: var(--font-punk);
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.onboarding-success {
+  padding: 1rem;
+  border: 1px solid var(--peeling-turquoise);
+  background-color: rgba(107, 149, 150, 0.1);
+  color: var(--peeling-turquoise);
+  font-family: var(--font-punk);
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.onboarding-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.onboarding-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.onboarding-label {
+  font-family: var(--font-punk);
+  font-size: 0.65rem;
+  color: var(--tarnished-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.onboarding-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(181, 155, 84, 0.3);
+  padding: 0.75rem 1rem;
+  color: #fff;
+  font-family: var(--font-punk);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.onboarding-input:focus {
+  border-color: var(--tarnished-gold);
+}
+
+.onboarding-label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.onboarding-forgot-btn {
+  background: none;
+  border: none;
+  color: var(--faded-ochre);
+  font-family: var(--font-punk);
+  font-size: 0.65rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.onboarding-gdpr-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.onboarding-checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--tarnished-gold);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+}
+
+.onboarding-checkbox:checked {
+  background: var(--anarchist-crimson);
+}
+
+.onboarding-gdpr-label {
+  font-family: var(--font-punk);
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.onboarding-submit-btn {
+  margin-top: 1rem;
+  padding: 1rem;
+  font-family: var(--font-punk);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.onboarding-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  font-family: var(--font-punk);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.onboarding-footer-text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.onboarding-footer-btn {
+  background: none;
+  border: none;
+  color: var(--tarnished-gold);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}

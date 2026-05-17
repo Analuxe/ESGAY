@@ -121,24 +121,24 @@ export default function CookieGate() {
         {/* Invisible buttons simulating glowing projection spots from the video */}
         <div className="hud-button-matrix">
           <button 
+            className="hud-projection-btn btn-manage"
+            onClick={() => { playStaticFlicker(); setShowSettings(true); }}
+            tabIndex={1}
+            aria-label="Manage protocols"
+          ></button>
+
+          <button 
             className="hud-projection-btn btn-accept"
             onClick={handleAcceptAll}
-            tabIndex={1}
+            tabIndex={2}
             aria-label="Accept all"
           ></button>
 
           <button 
             className="hud-projection-btn btn-reject"
             onClick={handleRejectAll}
-            tabIndex={2}
-            aria-label="Reject all"
-          ></button>
-
-          <button 
-            className="hud-projection-btn btn-manage"
-            onClick={() => { playStaticFlicker(); setShowSettings(true); }}
             tabIndex={3}
-            aria-label="Manage protocols"
+            aria-label="Reject all"
           ></button>
         </div>
       </div>
