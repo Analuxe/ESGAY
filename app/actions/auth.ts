@@ -52,8 +52,11 @@ export async function signup(formData: FormData) {
     return { error: error.message }
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/onboarding/success')
+  // Return success message instead of redirecting.
+  // Next.js redirect() throws internally, and the client-side try/catch
+  // in OnboardingFlow swallows it as an "unexpected error".
+  // The user needs to confirm their email before they can authenticate anyway.
+  return { success: 'Registration successful. Check your email to confirm your dossier.' }
 }
 
 export async function resetPassword(formData: FormData) {
@@ -62,7 +65,7 @@ export async function resetPassword(formData: FormData) {
   const email = formData.get('email') as string
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/update-password`,
+    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://esgay.vercel.app'}/auth/update-password`,
   })
 
   if (error) {
