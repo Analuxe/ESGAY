@@ -76,6 +76,32 @@
   font-family: var(--font-punk);
 }
 
+.fileInput {
+  background: transparent;
+  border: 1px dashed var(--tarnished-gold);
+  color: #fff;
+  padding: 0.75rem;
+  font-family: var(--font-punk);
+  cursor: pointer;
+}
+
+.fileInput::file-selector-button {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--tarnished-gold);
+  color: var(--tarnished-gold);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-punk);
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fileInput::file-selector-button:hover {
+  background: var(--tarnished-gold);
+  color: #000;
+}
+
+
 .textarea {
   background: transparent;
   border: 1px solid var(--tarnished-gold);

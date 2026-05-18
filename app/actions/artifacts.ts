@@ -119,6 +119,48 @@ export async function createArtifact(formData: FormData) {
   const wing = formData.get('wing') as string
   const stock_count = parseInt(formData.get('stock_count') as string, 10)
   
+  // Handle optional photo upload
+  const photoFile = formData.get('photo') as File | null
+  let image_url = null
+
+  if (photoFile && photoFile.size > 0) {
+    try {
+      const fileExt = photoFile.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`
+      const buffer = Buffer.from(await photoFile.arrayBuffer())
+
+      // Auto-ensure public bucket exists
+      try {
+        await supabaseAdmin.storage.createBucket('artifact-images', {
+          public: true
+        })
+      } catch (bucketErr) {
+        // Ignore if bucket already exists
+      }
+
+      const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+        .from('artifact-images')
+        .upload(fileName, buffer, {
+          contentType: photoFile.type,
+          upsert: true
+        })
+
+      if (uploadError) {
+        console.error('Supabase storage upload error:', uploadError)
+        throw new Error(`Storage upload failed: ${uploadError.message}`)
+      }
+
+      const { data: { publicUrl } } = supabaseAdmin.storage
+        .from('artifact-images')
+        .getPublicUrl(fileName)
+
+      image_url = publicUrl
+    } catch (uploadException: any) {
+      console.error('Failed to handle photo upload:', uploadException)
+      throw new Error(`Photo upload failed: ${uploadException.message}`)
+    }
+  }
+
   // For now, assign to "Divine Scavenger" or a default vendor for simplicity. 
   // In a full build, this would be a dropdown of vendors.
   const { data: vendorData } = await supabaseAdmin
@@ -135,7 +177,8 @@ export async function createArtifact(formData: FormData) {
       price,
       wing,
       stock_count,
-      vendor_id: vendorData?.id
+      vendor_id: vendorData?.id,
+      image_url
     })
 
   if (error) {

@@ -194,7 +194,7 @@ export default async function CommandCenter() {
             <h2 className={styles.sectionTitle}>
               Inject New Artifact
             </h2>
-            <form action={createArtifact} className={styles.form}>
+            <form action={createArtifact} className={styles.form} encType="multipart/form-data">
               
               <div className={styles.fieldGroup}>
                 <label htmlFor="artifact-title" className={styles.label}>Artifact Title</label>
@@ -226,6 +226,18 @@ export default async function CommandCenter() {
                   <option value="propaganda-parody">Satire & Camp</option>
                   <option value="the-apothecary">The Apothecary</option>
                 </select>
+              </div>
+
+              <div className={styles.fieldGroup}>
+                <label htmlFor="artifact-photo" className={styles.label}>Artifact Photo / Artwork</label>
+                <input 
+                  id="artifact-photo" 
+                  type="file" 
+                  name="photo" 
+                  accept="image/*" 
+                  title="Artifact Photo / Artwork" 
+                  className={styles.fileInput} 
+                />
               </div>
 
               <button type="submit" className={`subversive-btn ${styles.submitBtn}`}>
