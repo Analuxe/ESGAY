@@ -11,7 +11,7 @@ export default async function CommandCenter() {
 
   if (!isAdmin) {
     return (
-      <main className="room-wrapper fade-in" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh' }}>
+      <main className={`room-wrapper fade-in ${styles.accessDeniedWrapper}`}>
         <div className={styles.deniedContainer}>
           <div className="dropdown-scanlines"></div>
           <span className={styles.deniedAlertIcon}>⚠️ [ SECURITY ALERT ]</span>
@@ -52,7 +52,7 @@ export default async function CommandCenter() {
       <div className={styles.gridContainer}>
         
         {/* LEFT COLUMN: FORMS */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div className={styles.formsColumn}>
           {/* ADD ARTIFACT FORM */}
           <section className={`cracked-border ${styles.formSection}`}>
             <h2 className={styles.sectionTitle}>
@@ -106,7 +106,7 @@ export default async function CommandCenter() {
             <form action={addAdmin} className={styles.form}>
               <div className={styles.fieldGroup}>
                 <label htmlFor="admin-email" className={styles.label}>Authorize New Admin Email</label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <div className={styles.adminInputContainer}>
                   <input 
                     id="admin-email" 
                     type="email" 
@@ -114,38 +114,36 @@ export default async function CommandCenter() {
                     placeholder="agent@icloud.com" 
                     title="Admin Email" 
                     required 
-                    className={styles.input} 
-                    style={{ flex: 1 }}
+                    className={`${styles.input} ${styles.flexOne}`}
                   />
-                  <button type="submit" className="subversive-btn" style={{ padding: '0 1rem', fontSize: '0.9rem', cursor: 'pointer' }}>
+                  <button type="submit" className={`subversive-btn ${styles.grantButton}`}>
                     [ GRANT ]
                   </button>
                 </div>
               </div>
             </form>
 
-            <div style={{ marginTop: '2rem' }}>
-              <h3 className={styles.label} style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(212, 175, 55, 0.2)', paddingBottom: '0.5rem' }}>
+            <div className={styles.adminListSectionHeader}>
+              <h3 className={`${styles.label} ${styles.adminsHeader}`}>
                 Active Credentials
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div className={styles.adminsContainer}>
                 {/* Primary Admin (always displayed) */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem', background: 'rgba(212, 175, 55, 0.05)', borderLeft: '3px solid var(--tarnished-gold)' }}>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--tarnished-gold)', fontFamily: 'monospace' }}>khersak@icloud.com</span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--faded-ochre)', fontFamily: 'monospace' }}>[ PRIMARY ]</span>
+                <div className={styles.primaryAdminCard}>
+                  <span className={styles.primaryAdminEmail}>khersak@icloud.com</span>
+                  <span className={styles.primaryAdminLabel}>[ PRIMARY ]</span>
                 </div>
                 {/* Dynamically added admins */}
                 {admins.map((adm: any) => (
-                  <div key={adm.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.02)', borderLeft: '3px solid var(--peeling-turquoise)' }}>
-                    <span style={{ fontSize: '0.9rem', color: '#fff', fontFamily: 'monospace' }}>{adm.email}</span>
+                  <div key={adm.id} className={styles.dynamicAdminCard}>
+                    <span className={styles.dynamicAdminEmail}>{adm.email}</span>
                     <form action={async () => {
                       'use server'
                       await removeAdmin(adm.id)
                     }}>
                       <button 
                         type="submit" 
-                        className="subversive-btn" 
-                        style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem', borderColor: 'var(--anarchist-crimson)', color: 'var(--anarchist-crimson)', cursor: 'pointer' }}
+                        className={`subversive-btn ${styles.revokeButton}`}
                       >
                         [ REVOKE ]
                       </button>

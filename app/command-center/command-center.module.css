@@ -258,3 +258,92 @@
   100% { opacity: 0.6; transform: scale(1); }
 }
 
+/* Clearances and Admin Management Module styles */
+.accessDeniedWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.formsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.adminInputContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.flexOne {
+  flex: 1;
+}
+
+.grantButton {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.adminsHeader {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.adminsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.primaryAdminCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(212, 175, 55, 0.05);
+  border-left: 3px solid var(--tarnished-gold);
+}
+
+.primaryAdminEmail {
+  font-size: 0.9rem;
+  color: var(--tarnished-gold);
+  font-family: monospace;
+}
+
+.primaryAdminLabel {
+  font-size: 0.8rem;
+  color: var(--faded-ochre);
+  font-family: monospace;
+}
+
+.dynamicAdminCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--peeling-turquoise);
+}
+
+.dynamicAdminEmail {
+  font-size: 0.9rem;
+  color: #fff;
+  font-family: monospace;
+}
+
+.revokeButton {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-color: var(--anarchist-crimson);
+  color: var(--anarchist-crimson);
+  cursor: pointer;
+}
+
+.adminListSectionHeader {
+  margin-top: 2rem;
+}
+
