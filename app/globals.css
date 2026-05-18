@@ -52,11 +52,10 @@ body::before {
   background-size: cover, auto;
   background-position: center, center;
   background-blend-mode: overlay, normal;
-  opacity: 0.25;
-  /* Dialed up slightly to see the Lacroix pattern */
+  opacity: 0.35; /* Dialed up to bring out the luxurious wallpaper print */
   pointer-events: none;
   z-index: -1;
-  filter: grayscale(40%) contrast(1.2);
+  filter: grayscale(12%) contrast(1.15) brightness(0.9); /* Reduced grayscale to seeps historical colors through */
 }
 
 /* Vignette to emphasize shadows */
@@ -67,7 +66,7 @@ body::after {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 10%, rgba(15, 15, 15, 0.95) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 30%, rgba(15, 15, 15, 0.9) 100%); /* Wider vignette to view the framing print */
   pointer-events: none;
   z-index: -1;
 }
@@ -1911,4 +1910,80 @@ a:hover {
   font-size: 0.5rem;
   color: rgba(255, 255, 255, 0.15);
   text-transform: uppercase;
+}
+
+/* Baroque Christian Lacroix Corner Embellishments */
+.baroque-corner {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  color: var(--tarnished-gold);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 99;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: drop-shadow(0 0 2px rgba(181, 155, 84, 0.2));
+}
+
+.baroque-corner-tl {
+  top: 6.5rem; /* Stays clean below the secure navigation bar */
+  left: 2rem;
+}
+
+.baroque-corner-tr {
+  top: 6.5rem;
+  right: 2rem;
+  transform: scaleX(-1);
+}
+
+.baroque-corner-bl {
+  bottom: 2rem;
+  left: 2rem;
+  transform: scaleY(-1);
+}
+
+.baroque-corner-br {
+  bottom: 2rem;
+  right: 2rem;
+  transform: scale(-1);
+}
+
+/* Neoclassical Subversive Museum Frame surrounding the page */
+.embassy-viewport-frame {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  bottom: 2rem;
+  border: 1px dashed rgba(181, 155, 84, 0.15); /* Soft, dashed tarnished gold line */
+  pointer-events: none;
+  z-index: 98;
+  transition: all 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .baroque-corner {
+    width: 80px;
+    height: 80px;
+    opacity: 0.08; /* Subtler rendering on compact touch viewports */
+  }
+  .baroque-corner-tl,
+  .baroque-corner-tr {
+    top: 5.5rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .baroque-corner-bl,
+  .baroque-corner-br {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .embassy-viewport-frame {
+    top: 5rem;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    border-color: rgba(181, 155, 84, 0.08);
+  }
 }
