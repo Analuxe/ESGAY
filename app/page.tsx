@@ -91,6 +91,49 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Sovereign Embassy HQ Showcase */}
+      <section className="embassy-showcase-section">
+        <div className="container-luxe">
+          <div className="embassy-hq-frame cracked-border">
+            <div className="embassy-hq-scanlines"></div>
+            <div className="embassy-hq-glow"></div>
+            
+            <div className="embassy-hq-overlay-top">
+              <span className="hq-tag">[ ESTABLISHMENT OVERRIDE: ACTIVE ]</span>
+              <span className="hq-coords">LAT: 55.9533° N // LON: 3.1883° W</span>
+            </div>
+            
+            <div className="embassy-hq-image-wrapper">
+              <img 
+                src="/embassy-hope-in-decay.png" 
+                alt="ESGAY Sovereign Collective Resistance Embassy - Hope in the Decay" 
+                className="embassy-hq-image" 
+              />
+              <div className="embassy-hq-vignette"></div>
+            </div>
+
+            <div className="embassy-hq-overlay-bottom">
+              <div className="hq-info-block">
+                <div className="hq-sector">SECTOR_HQ_01 // THE ABANDONED EMBASSY</div>
+                <h2 className="hq-title">HOPE IN THE DECAY</h2>
+                <p className="hq-manifesto">
+                  A sanctuary forged in the crumbling ruins of high society. Here, fashion is armor, craftsmanship is resistance, and the agenda is sovereign.
+                </p>
+              </div>
+              <div className="hq-badge-grid">
+                <div className="hq-badge">
+                  <span className="hq-badge-dot pulse-red"></span>
+                  <span>FEED_ONLINE</span>
+                </div>
+                <div className="hq-badge">
+                  <span>CLE_DIPLOMATIC</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Artifacts Section */}
       <section className="featured-section">
         <div className="container-luxe">
