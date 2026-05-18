@@ -285,10 +285,7 @@ export default async function CommandCenter() {
                 {admins.map((adm: any) => (
                   <div key={adm.id} className={styles.dynamicAdminCard}>
                     <span className={styles.dynamicAdminEmail}>{adm.email}</span>
-                    <form action={async () => {
-                      'use server'
-                      await removeAdmin(adm.id)
-                    }}>
+                    <form action={removeAdmin.bind(null, adm.id)}>
                       <button 
                         type="submit" 
                         className={`subversive-btn ${styles.revokeButton}`}
@@ -320,10 +317,7 @@ export default async function CommandCenter() {
                   </p>
                 </div>
                 
-                <form action={async () => {
-                  'use server'
-                  await confiscateArtifact(artifact.id, artifact.is_confiscated, artifact.wing)
-                }}>
+                <form action={confiscateArtifact.bind(null, artifact.id, artifact.is_confiscated, artifact.wing)}>
                   <button type="submit" className={`${styles.actionBtn} ${artifact.is_confiscated ? styles.actionBtnRelease : styles.actionBtnConfiscate}`}>
                     {artifact.is_confiscated ? 'Release' : 'Confiscate'}
                   </button>
