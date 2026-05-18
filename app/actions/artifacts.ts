@@ -161,25 +161,82 @@ export async function createArtifact(formData: FormData) {
     }
   }
 
-  // For now, assign to "Divine Scavenger" or a default vendor for simplicity. 
-  // In a full build, this would be a dropdown of vendors.
-  const { data: vendorData } = await supabaseAdmin
-    .from('vendors')
-    .select('id')
-    .limit(1)
-    .single()
+  // Fetch a vendor or create one dynamically if none exist
+  let vendorId = null
+
+  try {
+    const { data: vendorData } = await supabaseAdmin
+      .from('vendors')
+      .select('id')
+      .limit(1)
+
+    if (vendorData && vendorData.length > 0) {
+      vendorId = vendorData[0].id
+    } else {
+      // No vendors exist. Let's create a default vendor to satisfy the foreign key constraint.
+      console.warn('No vendors found. Creating default vendor "Divine Scavenger"...')
+      const { data: newVendor, error: createVendorError } = await supabaseAdmin
+        .from('vendors')
+        .insert({
+          moniker: 'Divine Scavenger',
+          manifesto: 'We do not apologize for being too much.'
+        })
+        .select('id')
+        .single()
+
+      if (newVendor) {
+        vendorId = newVendor.id
+      } else {
+        // If single failed due to unique constraint or other conflict, try fetching again
+        const { data: existingVendor } = await supabaseAdmin
+          .from('vendors')
+          .select('id')
+          .eq('moniker', 'Divine Scavenger')
+          .limit(1)
+          .single()
+        vendorId = existingVendor?.id
+      }
+    }
+  } catch (e) {
+    console.error('Error selecting or creating vendor:', e)
+  }
+
+  // Dynamically detect if artifacts table expects image_url (text) or image_urls (text[])
+  let hasImageUrl = true
+  try {
+    const { error: columnError } = await supabaseAdmin
+      .from('artifacts')
+      .select('image_url')
+      .limit(1)
+
+    if (columnError && (
+      columnError.code === 'PGRST100' || 
+      columnError.message.includes('column') && columnError.message.includes('does not exist')
+    )) {
+      hasImageUrl = false
+    }
+  } catch (e) {
+    hasImageUrl = false
+  }
+
+  const insertPayload: any = {
+    title,
+    description,
+    price,
+    wing,
+    stock_count,
+    vendor_id: vendorId
+  }
+
+  if (hasImageUrl) {
+    insertPayload.image_url = image_url
+  } else {
+    insertPayload.image_urls = image_url ? [image_url] : []
+  }
 
   const { error } = await supabaseAdmin
     .from('artifacts')
-    .insert({
-      title,
-      description,
-      price,
-      wing,
-      stock_count,
-      vendor_id: vendorData?.id,
-      image_url
-    })
+    .insert(insertPayload)
 
   if (error) {
     console.error('Error creating artifact:', error)
