@@ -118,14 +118,16 @@ export default function Header({ user }: HeaderProps) {
                     <div className="dropdown-auth-email">
                       {user.email}
                     </div>
-                    <Link 
-                      href="/command-center" 
-                      className="dropdown-auth-btn"
-                      onClick={closeMenu}
-                      onMouseEnter={handleHoverLogo}
-                    >
-                      [ COMMAND CENTER ]
-                    </Link>
+                    {user.email === 'khersak@icloud.com' && (
+                      <Link 
+                        href="/command-center" 
+                        className="dropdown-auth-btn"
+                        onClick={closeMenu}
+                        onMouseEnter={handleHoverLogo}
+                      >
+                        [ COMMAND CENTER ]
+                      </Link>
+                    )}
                     <form 
                       action={async () => {
                         startTransition(async () => {

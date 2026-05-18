@@ -1,15 +1,26 @@
 'use server'
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 // We use the service role key here to bypass RLS for administrative actions.
-const supabaseAdmin = createClient(
+const supabaseAdmin = createSupabaseClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+async function verifyAdmin() {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user || user.email !== 'khersak@icloud.com') {
+    throw new Error('Unauthorized: restricted administrative command.')
+  }
+}
+
 export async function createArtifact(formData: FormData) {
+  await verifyAdmin()
+
   const title = formData.get('title') as string
   const description = formData.get('description') as string
   const price = parseFloat(formData.get('price') as string)
@@ -45,6 +56,8 @@ export async function createArtifact(formData: FormData) {
 }
 
 export async function confiscateArtifact(id: string, currentStatus: boolean, wing: string) {
+  await verifyAdmin()
+
   const { error } = await supabaseAdmin
     .from('artifacts')
     .update({ is_confiscated: !currentStatus })
@@ -58,3 +71,4 @@ export async function confiscateArtifact(id: string, currentStatus: boolean, win
   revalidatePath('/command-center')
   revalidatePath(`/${wing}`)
 }
+

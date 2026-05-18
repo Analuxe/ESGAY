@@ -6,7 +6,30 @@ import styles from './command-center.module.css'
 
 export default async function CommandCenter() {
   const supabase = createClient()
-  
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user || user.email !== 'khersak@icloud.com') {
+    return (
+      <main className="room-wrapper fade-in" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh' }}>
+        <div className={styles.deniedContainer}>
+          <div className="dropdown-scanlines"></div>
+          <span className={styles.deniedAlertIcon}>⚠️ [ SECURITY ALERT ]</span>
+          <h1 className={styles.deniedTitle}>RESTRICTED TERMINAL ACCESS</h1>
+          <div className={styles.deniedText}>
+            {"// FILE SYSTEM EXCEPTION: ACCESS_DENIED\n"}
+            {"// SOURCE: EMBASSY_FIREWALL_v2.6\n"}
+            {"// IDENTITY: "}{user ? `PROVISIONAL_DOSSIER_ID [${user.email}]` : "ANONYMOUS_RESTRICTED_LINK"}{"\n"}
+            {"// STATUS: SECURITY VULNERABILITY PREVENTED.\n\n"}
+            {"Your current dossier credentials do not possess the required diplomatic draft clearance to override this embassy terminal. Administrative permissions are restricted to authorized high-ranking agents."}
+          </div>
+          <Link href="/" className={styles.deniedBtn}>
+            &lt; Request Extraction / Return to Sectors &gt;
+          </Link>
+        </div>
+      </main>
+    )
+  }
+
   const { data: artifacts } = await supabase
     .from('artifacts')
     .select('*, vendors(moniker)')

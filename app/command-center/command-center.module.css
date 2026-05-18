@@ -186,3 +186,75 @@
   font-family: var(--font-punk);
   text-decoration: underline;
 }
+
+/* ACCESS DENIED STYLES */
+.deniedContainer {
+  max-width: 650px;
+  margin: 10vh auto;
+  padding: 3rem;
+  background-color: rgba(20, 0, 0, 0.9);
+  border: 2px solid var(--anarchist-crimson);
+  box-shadow: 0 0 35px rgba(139, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+}
+
+.deniedAlertIcon {
+  font-family: var(--font-punk);
+  font-size: 3.5rem;
+  color: var(--anarchist-crimson);
+  margin-bottom: 1.5rem;
+  animation: pulse 1.5s infinite;
+  display: block;
+}
+
+.deniedTitle {
+  font-family: var(--font-punk);
+  color: var(--anarchist-crimson);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+  padding-bottom: 1rem;
+}
+
+.deniedText {
+  color: #ddd;
+  font-family: monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem;
+  border: 1px dashed rgba(139, 0, 0, 0.4);
+}
+
+.deniedBtn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--tarnished-gold);
+  color: var(--tarnished-gold);
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-punk);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+.deniedBtn:hover {
+  background: var(--tarnished-gold);
+  color: #000;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
