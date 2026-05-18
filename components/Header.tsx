@@ -12,9 +12,10 @@ interface HeaderProps {
     id: string;
     email?: string;
   } | null;
+  isAdmin: boolean;
 }
 
-export default function Header({ user }: HeaderProps) {
+export default function Header({ user, isAdmin }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -118,7 +119,7 @@ export default function Header({ user }: HeaderProps) {
                     <div className="dropdown-auth-email">
                       {user.email}
                     </div>
-                    {user.email === 'khersak@icloud.com' && (
+                    {isAdmin && (
                       <Link 
                         href="/command-center" 
                         className="dropdown-auth-btn"

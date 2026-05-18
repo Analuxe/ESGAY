@@ -5,6 +5,7 @@ import Link from 'next/link';
 import CookieGate from "@/components/CookieGate";
 import Header from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
+import { checkIsAdmin } from "@/app/actions/artifacts";
 
 export const metadata: Metadata = {
   title: "ESGAY | The Abandoned Embassy",
@@ -73,13 +74,14 @@ export default async function RootLayout({
 }>) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const isAdmin = user ? await checkIsAdmin(user.email) : false;
 
   return (
     <html lang="en">
       <body className="font-punk">
         <Providers>
           <CookieGate />
-          <Header user={user} />
+          <Header user={user} isAdmin={isAdmin} />
           
           {/* Subtle Lacroix Baroque Framing embellishments */}
           <div className="embassy-viewport-frame" />

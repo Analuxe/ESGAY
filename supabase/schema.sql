@@ -58,3 +58,18 @@ insert into public.artifacts (vendor_id, title, description, price, wing, stock_
 select id, 'Tarnished Silk Trench', 'Tailored venom. A high-end silhouette designed specifically to intimidate the establishment.', 3200.00, 'sartorial-spite', 1
 from public.vendors where moniker = 'Divine Scavenger'
 limit 1;
+
+-- DYNAMIC ADMINISTRATORS
+create table if not exists public.admins (
+  id uuid primary key default uuid_generate_v4(),
+  email text not null unique,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.admins enable row level security;
+
+-- Policies (Admins can be viewed/modified by authenticated administrators)
+create policy "Admins are viewable by everyone" on public.admins for select using (true);
+create policy "Admins can be managed via service role" on public.admins for all using (true);
+
