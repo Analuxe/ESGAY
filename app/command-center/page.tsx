@@ -1,8 +1,9 @@
 export const dynamic = 'force-dynamic'
 import { createClient } from '@/lib/supabase/server'
-import { createArtifact, confiscateArtifact, addAdmin, removeAdmin, getAdmins, checkIsAdmin } from '@/app/actions/artifacts'
+import { getAdmins, checkIsAdmin } from '@/app/actions/artifacts'
 import Link from 'next/link'
 import styles from './command-center.module.css'
+import CommandCenterForms from './CommandCenterForms'
 
 export default async function CommandCenter() {
   const supabase = createClient()
@@ -185,152 +186,12 @@ export default async function CommandCenter() {
         </div>
       </div>
 
-      <div className={styles.gridContainer}>
-        
-        {/* LEFT COLUMN: FORMS */}
-        <div className={styles.formsColumn}>
-          {/* ADD ARTIFACT FORM */}
-          <section className={`cracked-border ${styles.formSection}`}>
-            <h2 className={styles.sectionTitle}>
-              Inject New Artifact
-            </h2>
-            <form action={createArtifact} className={styles.form} encType="multipart/form-data">
-              
-              <div className={styles.fieldGroup}>
-                <label htmlFor="artifact-title" className={styles.label}>Artifact Title</label>
-                <input id="artifact-title" type="text" name="title" placeholder="Enter title" title="Artifact Title" required className={styles.input} />
-              </div>
-
-              <div className={styles.fieldGroup}>
-                <label htmlFor="artifact-description" className={styles.label}>Subversive Description</label>
-                <textarea id="artifact-description" name="description" placeholder="Enter description" title="Subversive Description" required rows={4} className={styles.textarea} />
-              </div>
-
-              <div className={styles.twoColGrid}>
-                <div className={styles.fieldGroup}>
-                  <label htmlFor="artifact-price" className={styles.label}>Price ($)</label>
-                  <input id="artifact-price" type="number" name="price" step="0.01" placeholder="0.00" title="Price ($)" required className={styles.input} />
-                </div>
-                <div className={styles.fieldGroup}>
-                  <label htmlFor="artifact-stock" className={styles.label}>Stock Count</label>
-                  <input id="artifact-stock" type="number" name="stock_count" placeholder="1" title="Stock Count" required defaultValue="1" className={styles.input} />
-                </div>
-              </div>
-
-              <div className={styles.fieldGroup}>
-                <label htmlFor="artifact-wing" className={styles.label}>Embassy Courtyard</label>
-                <select id="artifact-wing" name="wing" title="Embassy Courtyard" required className={styles.select}>
-                  <option value="the-galleries">The Galleries</option>
-                  <option value="the-yardsmiths">Craftwork</option>
-                  <option value="sartorial-spite">Wardrobe</option>
-                  <option value="propaganda-parody">Satire & Camp</option>
-                  <option value="the-apothecary">The Apothecary</option>
-                </select>
-              </div>
-
-              <div className={styles.fieldGroup}>
-                <label htmlFor="artifact-photo" className={styles.label}>Artifact Photo / Artwork</label>
-                <input 
-                  id="artifact-photo" 
-                  type="file" 
-                  name="photo" 
-                  accept="image/*" 
-                  title="Artifact Photo / Artwork" 
-                  className={styles.fileInput} 
-                />
-              </div>
-
-              <button type="submit" className={`subversive-btn ${styles.submitBtn}`}>
-                [ DEPLOY ARTIFACT ]
-              </button>
-            </form>
-          </section>
-
-          {/* DOSSIER CLEARANCES (DYNAMIC ADMINS) */}
-          <section className={`cracked-border ${styles.formSection}`}>
-            <h2 className={styles.sectionTitle}>
-              Dossier Clearances
-            </h2>
-            <form action={addAdmin} className={styles.form}>
-              <div className={styles.fieldGroup}>
-                <label htmlFor="admin-email" className={styles.label}>Authorize New Admin Email</label>
-                <div className={styles.adminInputContainer}>
-                  <input 
-                    id="admin-email" 
-                    type="email" 
-                    name="email" 
-                    placeholder="agent@icloud.com" 
-                    title="Admin Email" 
-                    required 
-                    className={`${styles.input} ${styles.flexOne}`}
-                  />
-                  <button type="submit" className={`subversive-btn ${styles.grantButton}`}>
-                    [ GRANT ]
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <div className={styles.adminListSectionHeader}>
-              <h3 className={`${styles.label} ${styles.adminsHeader}`}>
-                Active Credentials
-              </h3>
-              <div className={styles.adminsContainer}>
-                {/* Primary Admin (always displayed) */}
-                <div className={styles.primaryAdminCard}>
-                  <span className={styles.primaryAdminEmail}>khersak@icloud.com</span>
-                  <span className={styles.primaryAdminLabel}>[ PRIMARY ]</span>
-                </div>
-                {/* Dynamically added admins */}
-                {admins.map((adm: any) => (
-                  <div key={adm.id} className={styles.dynamicAdminCard}>
-                    <span className={styles.dynamicAdminEmail}>{adm.email}</span>
-                    <form action={removeAdmin.bind(null, adm.id)}>
-                      <button 
-                        type="submit" 
-                        className={`subversive-btn ${styles.revokeButton}`}
-                      >
-                        [ REVOKE ]
-                      </button>
-                    </form>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* RIGHT COLUMN: CURRENT INVENTORY */}
-        <section>
-          <h2 className={styles.sectionTitle}>
-            Active Inventory Log
-          </h2>
-          <div className={styles.inventoryList}>
-            {artifacts?.map((artifact) => (
-              <div key={artifact.id} className={`${styles.inventoryItem} ${artifact.is_confiscated ? styles.inventoryItemConfiscated : styles.inventoryItemActive}`}>
-                <div>
-                  <h3 className={`${styles.itemTitle} ${artifact.is_confiscated ? styles.itemTitleConfiscated : styles.itemTitleActive}`}>
-                    {artifact.title}
-                  </h3>
-                  <p className={styles.itemMeta}>
-                    {artifact.wing} | ${artifact.price} | Stock: {artifact.stock_count}
-                  </p>
-                </div>
-                
-                <form action={confiscateArtifact.bind(null, artifact.id, artifact.is_confiscated, artifact.wing)}>
-                  <button type="submit" className={`${styles.actionBtn} ${artifact.is_confiscated ? styles.actionBtnRelease : styles.actionBtnConfiscate}`}>
-                    {artifact.is_confiscated ? 'Release' : 'Confiscate'}
-                  </button>
-                </form>
-              </div>
-            ))}
-            {artifacts?.length === 0 && (
-              <p className={styles.emptyMsg}>No artifacts exist in the database.</p>
-            )}
-          </div>
-        </section>
-
-      </div>
+      {/* RENDER THE HIGH-FIDELITY INTERACTIVE COMPONENT */}
+      <CommandCenterForms 
+        initialArtifacts={artifacts || []}
+        initialAdmins={admins || []}
+        vendors={vendors || []}
+      />
 
       <div className={styles.footerNav}>
         <Link href="/" className={styles.returnLink}>

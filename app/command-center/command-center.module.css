@@ -535,3 +535,121 @@
   color: var(--faded-ochre);
 }
 
+/* PREMIUM INTERACTIVE COMPONENT STYLES */
+.alertContainer {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  animation: slideDown 0.3s ease-out;
+}
+
+.errorAlert {
+  background: rgba(139, 0, 0, 0.15);
+  border: 1px solid var(--anarchist-crimson);
+  color: var(--anarchist-crimson);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.2);
+}
+
+.successAlert {
+  background: rgba(38, 166, 154, 0.15);
+  border: 1px solid var(--peeling-turquoise);
+  color: var(--peeling-turquoise);
+  box-shadow: 0 0 15px rgba(38, 166, 154, 0.2);
+}
+
+.alertScanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.06), 
+    rgba(0, 255, 0, 0.02), 
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+.photoPreviewContainer {
+  margin-top: 1rem;
+  border: 1px solid var(--tarnished-gold);
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.photoPreviewTitle {
+  font-size: 0.8rem;
+  color: var(--tarnished-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.photoPreviewImg {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.searchBoxContainer {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #fff;
+  padding: 0.75rem;
+  font-family: var(--font-punk);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--peeling-turquoise);
+  box-shadow: 0 0 10px rgba(38, 166, 154, 0.2);
+}
+
+.btnLoading {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.btnLoading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: calc(50% - 8px);
+  right: 1rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

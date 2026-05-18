@@ -10,6 +10,7 @@ interface Artifact {
   price: number;
   stock_count: number;
   image_url?: string;
+  image_urls?: string[];
   vendors?: {
     moniker: string;
   } | null;
@@ -20,6 +21,7 @@ export default function ArtifactCard({ artifact, index }: { artifact: Artifact, 
   const [added, setAdded] = useState(false);
 
   const artifactNumber = `ARTIFACT ${String(index + 1).padStart(3, '0')}`;
+  const imageUrl = artifact.image_url || (artifact.image_urls && artifact.image_urls.length > 0 ? artifact.image_urls[0] : undefined);
 
   const handleAcquire = () => {
     if (artifact.stock_count > 0 && !added) {
@@ -38,9 +40,9 @@ export default function ArtifactCard({ artifact, index }: { artifact: Artifact, 
       <div className="artifact-number">{artifactNumber}</div>
       
       <div className="artifact-image-container">
-        {artifact.image_url ? (
+        {imageUrl ? (
           <img 
-            src={artifact.image_url} 
+            src={imageUrl} 
             alt={artifact.title}
             className="artifact-img hover-scale"
           />

@@ -32,23 +32,28 @@ export async function checkIsAdmin(email?: string): Promise<boolean> {
   return false
 }
 
-// Server action guard
+// Server action guard - Returns error object if unauthorized, otherwise null
 async function verifyAdmin() {
   const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user || !user.email) {
-    throw new Error('Unauthorized: restricted administrative command.')
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
+  if (authError || !user || !user.email) {
+    return { error: 'Unauthorized: restricted administrative credentials.' }
   }
 
   const isAdmin = await checkIsAdmin(user.email)
   if (!isAdmin) {
-    throw new Error('Unauthorized: restricted administrative command.')
+    return { error: 'Unauthorized: restricted administrative clearance level.' }
   }
+  return null
 }
 
 // Fetch list of all dynamically added admins
 export async function getAdmins() {
-  await verifyAdmin()
+  const authErr = await verifyAdmin()
+  if (authErr) {
+    console.warn('Admins lookup unauthorized. Returning empty.')
+    return []
+  }
   
   try {
     const { data, error } = await supabaseAdmin
@@ -70,15 +75,16 @@ export async function getAdmins() {
 
 // Server Action to add a dynamic administrator
 export async function addAdmin(formData: FormData) {
-  await verifyAdmin()
+  const authErr = await verifyAdmin()
+  if (authErr) return authErr
 
   const email = (formData.get('email') as string)?.trim().toLowerCase()
   if (!email) {
-    throw new Error('Email is required.')
+    return { error: 'Email is required.' }
   }
 
   if (email === 'khersak@icloud.com') {
-    throw new Error('This user is already the primary administrator.')
+    return { error: 'This user is already the primary administrator.' }
   }
 
   const { error } = await supabaseAdmin
@@ -87,15 +93,17 @@ export async function addAdmin(formData: FormData) {
 
   if (error) {
     console.error('Error adding admin:', error)
-    throw new Error(`Failed to add admin: ${error.message}`)
+    return { error: `Failed to add admin: ${error.message}` }
   }
 
   revalidatePath('/command-center')
+  return { success: true }
 }
 
 // Server Action to remove a dynamic administrator
 export async function removeAdmin(id: string) {
-  await verifyAdmin()
+  const authErr = await verifyAdmin()
+  if (authErr) return authErr
 
   const { error } = await supabaseAdmin
     .from('admins')
@@ -104,21 +112,37 @@ export async function removeAdmin(id: string) {
 
   if (error) {
     console.error('Error removing admin:', error)
-    throw new Error(`Failed to remove admin: ${error.message}`)
+    return { error: `Failed to remove admin: ${error.message}` }
   }
 
   revalidatePath('/command-center')
+  return { success: true }
 }
 
 export async function createArtifact(formData: FormData) {
-  await verifyAdmin()
+  const authErr = await verifyAdmin()
+  if (authErr) return authErr
 
   const title = formData.get('title') as string
   const description = formData.get('description') as string
-  const price = parseFloat(formData.get('price') as string)
+  const priceInput = formData.get('price') as string
+  const stockInput = formData.get('stock_count') as string
   const wing = formData.get('wing') as string
-  const stock_count = parseInt(formData.get('stock_count') as string, 10)
   
+  if (!title || !description || !priceInput || !wing) {
+    return { error: 'Missing required artifact metadata fields.' }
+  }
+
+  const price = parseFloat(priceInput)
+  if (isNaN(price)) {
+    return { error: 'Invalid price value: Must be a valid decimal number.' }
+  }
+
+  const stock_count = parseInt(stockInput || '1', 10)
+  if (isNaN(stock_count)) {
+    return { error: 'Invalid stock count: Must be a valid integer.' }
+  }
+
   // Handle optional photo upload
   const photoFile = formData.get('photo') as File | null
   let image_url = null
@@ -147,7 +171,7 @@ export async function createArtifact(formData: FormData) {
 
       if (uploadError) {
         console.error('Supabase storage upload error:', uploadError)
-        throw new Error(`Storage upload failed: ${uploadError.message}`)
+        return { error: `Storage upload failed: ${uploadError.message}` }
       }
 
       const { data: { publicUrl } } = supabaseAdmin.storage
@@ -157,7 +181,7 @@ export async function createArtifact(formData: FormData) {
       image_url = publicUrl
     } catch (uploadException: any) {
       console.error('Failed to handle photo upload:', uploadException)
-      throw new Error(`Photo upload failed: ${uploadException.message}`)
+      return { error: `Photo upload failed: ${uploadException.message}` }
     }
   }
 
@@ -211,7 +235,10 @@ export async function createArtifact(formData: FormData) {
 
     if (columnError && (
       columnError.code === 'PGRST100' || 
-      columnError.message.includes('column') && columnError.message.includes('does not exist')
+      columnError.code === '42703' ||
+      (columnError.message && (
+        columnError.message.includes('column') && columnError.message.includes('does not exist')
+      ))
     )) {
       hasImageUrl = false
     }
@@ -219,6 +246,7 @@ export async function createArtifact(formData: FormData) {
     hasImageUrl = false
   }
 
+  // Attempt to insert with the detected setting, but fall back dynamically if Postgres rejects it
   const insertPayload: any = {
     title,
     description,
@@ -234,21 +262,47 @@ export async function createArtifact(formData: FormData) {
     insertPayload.image_urls = image_url ? [image_url] : []
   }
 
-  const { error } = await supabaseAdmin
+  let { error: insertError } = await supabaseAdmin
     .from('artifacts')
     .insert(insertPayload)
 
-  if (error) {
-    console.error('Error creating artifact:', error)
-    throw new Error(`Failed to create artifact: ${error.message}`)
+  // If the query failed because our detection guessed the wrong column name, retry dynamically with the alternate column name!
+  if (insertError && (
+    insertError.code === '42703' || 
+    (insertError.message && (
+      insertError.message.includes('column') && insertError.message.includes('does not exist')
+    ))
+  )) {
+    console.warn('Postgres column error during insert. Triggering fallback insert strategy...');
+    const alternatePayload = { ...insertPayload }
+    if (hasImageUrl) {
+      delete alternatePayload.image_url
+      alternatePayload.image_urls = image_url ? [image_url] : []
+    } else {
+      delete alternatePayload.image_urls
+      alternatePayload.image_url = image_url
+    }
+
+    const { error: retryError } = await supabaseAdmin
+      .from('artifacts')
+      .insert(alternatePayload)
+    
+    insertError = retryError
+  }
+
+  if (insertError) {
+    console.error('Error creating artifact after fallback attempts:', insertError)
+    return { error: `Failed to create artifact in database: ${insertError.message}` }
   }
 
   revalidatePath('/command-center')
   revalidatePath(`/${wing}`)
+  return { success: true }
 }
 
 export async function confiscateArtifact(id: string, currentStatus: boolean, wing: string) {
-  await verifyAdmin()
+  const authErr = await verifyAdmin()
+  if (authErr) return authErr
 
   const { error } = await supabaseAdmin
     .from('artifacts')
@@ -257,10 +311,10 @@ export async function confiscateArtifact(id: string, currentStatus: boolean, win
 
   if (error) {
     console.error('Error updating artifact:', error)
-    throw new Error(`Failed to update artifact: ${error.message}`)
+    return { error: `Failed to update artifact: ${error.message}` }
   }
 
   revalidatePath('/command-center')
   revalidatePath(`/${wing}`)
+  return { success: true }
 }
-
