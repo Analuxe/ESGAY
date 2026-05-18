@@ -80,7 +80,7 @@ export default function Header({ user }: HeaderProps) {
           <button 
             onClick={toggleMenu} 
             className={`header-menu-btn ${isOpen ? 'active' : ''}`}
-            aria-expanded={isOpen}
+            aria-expanded={isOpen ? 'true' : 'false'}
             aria-label="Toggle system terminal received logs"
           >
             <span className="menu-indicator"></span>
