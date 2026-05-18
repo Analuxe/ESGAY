@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
 export async function login(formData: FormData) {
   const supabase = createClient()
@@ -37,10 +38,14 @@ export async function signup(formData: FormData) {
     return { error: 'You must consent to the processing of your data to create an account.' }
   }
 
+  const origin = headers().get('origin') || 'https://esgay.vercel.app'
+  const redirectTo = `${origin}/auth/callback`
+
   const { error } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
+      emailRedirectTo: redirectTo,
       data: {
         gdpr_consent: true,
         consent_date: new Date().toISOString(),
