@@ -347,3 +347,165 @@
   margin-top: 2rem;
 }
 
+/* Business Analytics Styling System */
+.analyticsRibbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.statCard {
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--tarnished-gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: var(--tarnished-gold);
+  box-shadow: 0 4px 25px rgba(212, 175, 55, 0.15);
+  transform: translateY(-2px);
+}
+
+.statCardTitle {
+  font-family: var(--font-punk);
+  color: var(--faded-ochre);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.statCardValue {
+  font-family: var(--font-punk);
+  font-size: 1.75rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.statCardValueHighlight {
+  color: var(--peeling-turquoise);
+}
+
+.statCardValueCrimson {
+  color: var(--anarchist-crimson);
+}
+
+.statCardAccent {
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-punk);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.analyticsPanel {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+}
+
+.panelTitle {
+  font-family: var(--font-luxe);
+  color: var(--tarnished-gold);
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.distributionRow {
+  margin-bottom: 1.25rem;
+}
+
+.distributionLabel {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-punk);
+  font-size: 0.85rem;
+  color: #ddd;
+  margin-bottom: 0.5rem;
+}
+
+.distributionBarContainer {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.distributionBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--peeling-turquoise), var(--tarnished-gold));
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+}
+
+.artisanTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-punk);
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+.artisanTable th {
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  color: var(--faded-ochre);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  text-transform: uppercase;
+}
+
+.artisanTable td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.artisanTable tr:hover td {
+  background: rgba(212, 175, 55, 0.02);
+  color: #fff;
+}
+
+.statCardSub {
+  font-size: 0.8rem;
+  color: var(--faded-ochre);
+}
+
+.artisanMonikerCell {
+  color: var(--peeling-turquoise);
+}
+
+.artisanValuationCell {
+  color: var(--tarnished-gold);
+}
+
+.artisanEmptyCell {
+  text-align: center;
+  font-style: italic;
+  color: var(--faded-ochre);
+}
+
