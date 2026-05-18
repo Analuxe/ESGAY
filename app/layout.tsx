@@ -1,37 +1,30 @@
 import type { Metadata } from "next";
-import { Space_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./Providers";
 import Link from 'next/link';
 import CookieGate from "@/components/CookieGate";
-
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-punk",
-});
-
-const playfair = Playfair_Display({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-luxe",
-});
+import Header from "@/components/Header";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "ESGAY | The Abandoned Embassy",
   description: "End-Stage Gay Agenda Yardsale. A sanctuary for the radicalized and the unapologetic.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <html lang="en">
-      <body className={`${spaceMono.variable} ${playfair.variable} font-punk`}>
+      <body className="font-punk">
         <Providers>
           <CookieGate />
+          <Header user={user} />
           <div className="embassy-container">
             {children}
           </div>
@@ -58,3 +51,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

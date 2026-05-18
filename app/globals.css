@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 :root {
   /* The Palette of Decay */
   --obsidian-matte: #1a1a1a;
@@ -7,6 +9,10 @@
   /* Muted, sun-bleached Havana cyan */
   --faded-ochre: #dfa25f;
   --embassy-cream: #f4f1ea;
+
+  /* Fonts */
+  --font-luxe: 'Playfair Display', Georgia, serif;
+  --font-punk: 'Space Mono', Monaco, Courier, monospace;
 
   /* Basic Variables */
   --foreground-rgb: 230, 230, 230;
@@ -224,6 +230,7 @@ a:hover {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 5rem;
 }
 
 .room-wrapper {
@@ -689,7 +696,7 @@ a:hover {
 
 /* Foyer/Home Page Clean Styling */
 .hero-section {
-  padding: 10rem 2rem 8rem;
+  padding: 7rem 2rem 8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   background-color: rgba(10, 10, 10, 0.4);
   -webkit-backdrop-filter: blur(10px);
@@ -1548,4 +1555,360 @@ a:hover {
   padding: 0;
   font-family: inherit;
   font-size: inherit;
+}
+
+/* ==========================================================================
+   GLOBAL HEADER & DROPDOWN NAVIGATION
+   ========================================================================== */
+
+.global-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+  background-color: rgba(26, 26, 26, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(181, 155, 84, 0.2);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.global-header-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.header-logo {
+  font-family: var(--font-luxe), serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: -0.02em;
+  transition: text-shadow 0.2s steps(2);
+  display: flex;
+  align-items: center;
+}
+
+.header-logo:hover {
+  color: #fff;
+  text-shadow: 2px 0 var(--anarchist-crimson), -2px 0 var(--peeling-turquoise);
+}
+
+.header-logo .logo-gold {
+  color: var(--tarnished-gold);
+}
+
+.header-menu-container {
+  position: relative;
+}
+
+.header-menu-btn {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--tarnished-gold);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(181, 155, 84, 0.3);
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s steps(2);
+}
+
+.header-menu-btn:hover,
+.header-menu-btn.active {
+  border-color: var(--tarnished-gold);
+  background: rgba(181, 155, 84, 0.15);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(181, 155, 84, 0.3);
+}
+
+.menu-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--anarchist-crimson);
+  box-shadow: 0 0 6px var(--anarchist-crimson);
+  transition: background 0.2s steps(2), box-shadow 0.2s steps(2);
+}
+
+.header-menu-btn.active .menu-indicator {
+  background: var(--peeling-turquoise);
+  box-shadow: 0 0 6px var(--peeling-turquoise);
+}
+
+/* Dropdown Menu Container */
+.header-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  width: 320px;
+  background-color: rgba(20, 20, 20, 0.95);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--tarnished-gold);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(181, 155, 84, 0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  z-index: 10000;
+  transform-origin: top right;
+  opacity: 0;
+  transform: scale(0.95) translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.15s ease-out, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-dropdown-menu.open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Decorative CRT elements inside dropdown */
+.dropdown-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.dropdown-border-accent {
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--anarchist-crimson), transparent);
+  z-index: 2;
+}
+
+.dropdown-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dropdown-header-block {
+  margin-bottom: 0.25rem;
+}
+
+.dropdown-system-title {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.55rem;
+  color: var(--tarnished-gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.dropdown-system-status {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.dropdown-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-section-title {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.6rem;
+  color: var(--peeling-turquoise);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 1px solid rgba(107, 149, 150, 0.2);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dropdown-item-link {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--embassy-cream);
+  text-decoration: none;
+  padding: 0.45rem 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid transparent;
+  transition: all 0.12s steps(2);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.dropdown-item-link:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--faded-ochre);
+  padding-left: 0.8rem;
+  text-shadow: 0 0 4px rgba(223, 162, 95, 0.3);
+}
+
+.dropdown-item-link .link-arrow {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.6rem;
+}
+
+.dropdown-item-link:hover .link-arrow {
+  color: var(--faded-ochre);
+}
+
+/* Auth / Identity Panel */
+.dropdown-auth-card {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed rgba(181, 155, 84, 0.25);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dropdown-auth-status {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-indicator-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.status-indicator-dot.online {
+  background: var(--peeling-turquoise);
+  box-shadow: 0 0 6px var(--peeling-turquoise);
+}
+
+.status-indicator-dot.offline {
+  background: var(--anarchist-crimson);
+  box-shadow: 0 0 6px var(--anarchist-crimson);
+}
+
+.dropdown-auth-email {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.65rem;
+  color: var(--embassy-cream);
+  word-break: break-all;
+  opacity: 0.85;
+}
+
+.dropdown-auth-btn {
+  display: block;
+  width: 100%;
+  font-family: var(--font-punk), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  background: var(--anarchist-crimson);
+  border: 1px solid var(--tarnished-gold);
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s steps(2);
+}
+
+.dropdown-auth-btn:hover {
+  background: var(--tarnished-gold);
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(181, 155, 84, 0.4);
+}
+
+.dropdown-signout-form {
+  margin: 0;
+  width: 100%;
+}
+
+.dropdown-btn-signout {
+  display: block;
+  width: 100%;
+  font-family: var(--font-punk), monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--anarchist-crimson);
+  background: none;
+  border: 1px solid rgba(139, 0, 0, 0.25);
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s steps(2);
+}
+
+.dropdown-btn-signout:hover {
+  background: rgba(139, 0, 0, 0.12);
+  border-color: var(--anarchist-crimson);
+  color: #fff;
+}
+
+.dropdown-footer {
+  margin-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-manifest-status {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.55rem;
+  color: var(--faded-ochre);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.dropdown-manifest-status:hover {
+  text-decoration: underline;
+  color: var(--tarnished-gold);
+}
+
+.dropdown-system-secure {
+  font-family: var(--font-punk), monospace;
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
 }
